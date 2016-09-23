@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head><!--- asdfsdf -->
+    {%- set source = front_end_progress -%}
+    {%- set site_name = source.siteName -%}
+
+{#
+
+DevProgress.twig
+by Henry Bley-Vroman
+MIT License
+
+A checklist / progress tracker in Twig and JSON
+
+
+
+
+README: This checklist should make it easy for the devs to record their progress and, just as importantly,
+for PMs to follow along with a site's progress. For every template build out in src/urls,
+add an template to dev_checklist.templates. It will look like 
+
+    "templates": [
+        {
+          "url": "[required: he name of the page. do no include the .extension]",
+          "desktop": "[required: status]",
+          "mobile": "[required: status]",
+          "specific": [
+            {
+              "title": "specific component",
+              "desktop": "[required: status]",
+              "mobile": "[required: status]"
+            }
+          ],
+          "shared": [
+            "[required: name of the shared component]"
+          ],
+          "notes": "[optional: any notes]"
+        }
+    ],
+    "global": [
+        {
+            "title": "[required: name of the global component",
+            "desktop": "[required: status]",
+            "mobile": "[required: status]",
+        }
+    ],
+    "shared": [
+        {
+            "title": "[required: name of the shared component",
+            "desktop": "[required: status]",
+            "mobile": "[required: status]",
+        }
+    ]
+
+Possible statuses for desktop and mobile are "not_started", "started", and "finished".
+
+A status will be automatically determined from the desktop and mobile statuses of each template and component:
+    - "not started" is template where neither the mobile nor the desktop have been started
+    - "started" is templates where neither the mobile nor the desktop are finished
+    - "finished" is templates where both the mobile and the desktop are finished
+    - and "getting_there" is templates where either mobile or desktop but not both are finished.
+
+All unfinished templates will be followed by their components, labelled with the component's desktop and mobile statuses
+
+
+
+
+#}  
+    <title>
+        {{site_name}} Progress
+    </title>
+    <style type="text/css">
+        h2 {
+            padding-top: 20px;
+        }
+        a, span {
+            text-decoration: none;
+            color: #000;
+            padding: 5px;
+        }
+        a {
+            display: block;
+        }
+        a h4 {
+            color: #4b4b4b;
+            font-weight: 400;
+            font-style: italic;
+        }
+        span {
+            display: inline-block;
+            margin-right: 6px;
+        }
+        ul {
+            list-style-position: inside;
+            list-style-type: none;
+        }
+        ul li:before {
+            content: '\2022';
+            color: #000;
+            padding-right: 6px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        section {
+            padding-left: 28px;
+        }
+        ol > li {
+        }
+        ol > li a {
+            color: inherit;
+        }
+        ol > li a:hover {
+            background: #f4f4f4 !important;
+        }
+        {% for status in source.statuses %}
+            section.{{status.title}} h3, section.{{status.title}} ol > li, section.{{status.title}} ol > li a {
+                color: {{status.background}}
+            }
+            li.{{status.title}} a, span.{{status.title}} {
+                background: {{status.background}};
+                color: {{status.color}}
+            }
+            li.{{status.title}} {
+                color: {{status.background}};
+            }
+        {% endfor %}
+        section.finished li a {
+            background: transparent;
+        }
+        em {
+            color: #000;
+            font-style: normal;
+        }
+        em:before {
+            content: '-';
+            padding-right: 6px;
+        }
+    </style>
+</head>
+<body>
+
+{# ================    Macros  ================ #}
+
+                                                {% macro finished(finished,shared) %}
+                                                    {% if finished.0 %}
+                                                        <section class="finished">
+                                                            <h3>Finished</h3>
+                                                            <ol>
+                                                                {% for item in finished %}
+                                                                <li class="finished">
+                                                                    {% if shared %}<a href="{{item.title}}.html">{% endif %}
+                                                                        {{item.title}}
+
+                                                                        {% if item.notes %}
+                                                                            <em>{{item.notes}}</em>
+                                                                        {% endif %}
+                                                                        
+                                                                    {% if shared %}</a>{% endif %}
+                                                                    
+                                                                </li>
+                                                                {% endfor %}
+                                                            </ol>
+                                                        </section>
+                                                    {% endif %}
+                                                {% endmacro %}
+
+
+
+                                                {% macro item(item,show_notes) %}
+                                                    {{item.title}}
+                                                    <span class="{{ item.desktop }}">desktop</span>
+                                                    <span class="{{ item.mobile }}">mobile</span>
+                                                    {% if item.notes and show_notes != 'no notes' %}
+                                                        <em>{{item.notes}}</em>
+                                                    {% endif %}
+                                                {% endmacro %}
+
+
+
+                                                {% macro classedItem(item,show_notes) %}
+                                                    {% import _self as wrapped_checklist %}
+                                                    {% if item.desktop == 'finished' and item.mobile == 'finished' %}
+                                                        {% set item_status = 'finished' %}
+                                                    {% elseif (item.desktop == 'finished' or item.mobile == 'finished') or (item.desktop == 'started' and item.mobile == 'started') %}{# twigjs bug: can't use 'and not' #}
+                                                        {% if not (item.desktop == 'finished' and item.mobile == 'finished') %}
+                                                            {% set item_status = 'getting_there' %}
+                                                        {% endif %}
+                                                    {% elseif (item.desktop == 'started' or item.mobile == 'started') %}{# twigjs bug: can't use 'and not' #}
+                                                        {% if not (item.desktop == 'finished' or item.mobile == 'finished') %}
+                                                            {% if not (item.desktop == 'started' and item.mobile == 'started' ) %}
+                                                                {% set item_status = 'started' %}
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% elseif item.desktop == 'not_started' and item.mobile == 'not_started' %}
+                                                        {% set item_status = 'not_started' %}
+                                                    {% endif %}
+                                                    <li class="{{item_status}}">
+                                                        {{wrapped_checklist.item(item,show_notes)}}
+                                                    </li>
+                                                {% endmacro %}
+
+
+
+                                                {% macro unfinished(array,shared) %}
+                                                    {% import _self as wrapped_checklist %}
+                                                    {# {{_context|json_encode}} #}
+                                                    {#  the listings for the unfinished things are a little more complicated:
+                                                    
+                                                        they list their template-specific components, and the shared components they use,
+                                                        and the status of each of those components
+                                                    #}
+                                                    {% for status in array %}
+
+                                                        {# if not_finished gets changed, this 'if' has to be changed #}
+                                                        {% if loop.first %}
+                                                            {% set status_name = 'getting_there' %}
+                                                        {% elseif loop.index == 2 %}
+                                                            {% set status_name = 'started' %}
+                                                        {% else %}
+                                                            {% set status_name = 'not_started' %}
+                                                        {% endif %}
+                                                        
+                                                        {% if status.0 %}
+                                                        
+                                                            {# prepare to transform the status into legible words #}
+                                                            {% set status_words = status_name|split('_') %}
+
+                                                            {# the list of items with the specified status #}
+                                                            <section class="{{status_name}}">
+                                                                <h3>{{status_words.0|capitalize}} {{status_words.1}}</h3>
+                                                                <ol>
+                                                                    {% for item in status %}
+                                                                        <li>
+                                                                            {% if shared %}<a href="{{item.title}}.html">{% endif %}
+
+                                                                                {{wrapped_checklist.item(item)}}
+
+                                                                                {% if item.specific.0 %}
+                                                                                    <ul>
+                                                                                        <h4>Template-specific components</h4>
+                                                                                        {% for component in item.specific %}
+                                                                                            {{wrapped_checklist.classedItem(component)}}
+                                                                                        {% endfor %}
+                                                                                    </ul>
+                                                                                {% endif %}
+
+                                                                                {% if item.shared.0 %}
+                                                                                    <ul>
+                                                                                        <h4>Shared components</h4>
+                                                                                        {% for item_shared in item.shared %}
+                                                                                            {% for component in shared if component.title == item_shared %}
+                                                                                                {{wrapped_checklist.classedItem(component,'no notes')}}
+                                                                                            {% endfor %}
+                                                                                        {% endfor %}
+                                                                                    </ul>
+                                                                                {% endif %}
+                                                                            {% if shared %}</a>{% endif %}
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ol>
+                                                            </section>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endmacro %}
+
+
+
+                                                {% macro build(array,shared) %}
+                                                    {% spaceless %}
+                                                        
+                                                        {% import _self as wrapped_checklist %}
+                                                        {% set finished = [] %}
+                                                        {% set getting_there = [] %}
+                                                        {% set started = [] %}
+                                                        {% set not_started = [] %}
+
+                                                        {# build the list of finished things #}
+                                                        {% for item in array %}
+                                                            {% if item.desktop == 'finished' and item.mobile == 'finished' %}
+                                                                {% set finished = finished|merge([item]) %}
+                                                            {% endif %}
+                                                        {% endfor %}
+
+                                                        {# build the array of "getting there" things #}
+                                                        {% for item in array %}
+                                                            {% if (item.desktop == 'finished' or item.mobile == 'finished') or (item.desktop == 'started' and item.mobile == 'started') %}{# twigjs bug: can't use 'and not' #}
+                                                                {% if not (item.desktop == 'finished' and item.mobile == 'finished') %}
+                                                                    {% set getting_there = getting_there|merge([item]) %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+
+                                                        {# build the array of stared things #}
+                                                        {% for item in array %}
+                                                            {% if (item.desktop == 'started' or item.mobile == 'started') %}{# twigjs bug: can't use 'and not' #}
+                                                                {% if not (item.desktop == 'finished' or item.mobile == 'finished') %}
+                                                                    {% if not (item.desktop == 'started' and item.mobile == 'started' ) %}
+                                                                        {% set started = started|merge([item]) %}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        
+                                                        {# build the array of not started things #}
+                                                        {% for item in array %}
+                                                            {% if item.desktop == 'not_started' and item.mobile == 'not_started' %}
+                                                                {% set not_started = not_started|merge([item]) %}
+                                                            {% endif %}
+                                                        {% endfor %}
+
+                                                        {# if there are any finished things, list them #}
+                                                        {{wrapped_checklist.finished(finished,shared)}}
+
+                                                        {# if there are any unfinished things, list them #}
+                                                        {{wrapped_checklist.unfinished([getting_there, started, not_started],shared)}}
+
+                                                    {% endspaceless %}
+                                                {% endmacro %}
+
+                                                {% import _self as checklist %}
+
+{# ==============    End Macros  ============== #}
+
+{#      
+        USEAGE
+        
+        to build a list from a json array, all you have to do is
+
+        1. define MY_ARRAY (e.g. in a {% set %} )
+        2. {{ checklist.build(MY_ARRAY) }}
+
+        3. for the Templates list, also pass in the array of shared components:
+           {% set TEMPLATES_ARRAY = ... %}
+           {% set SHARED_COMPONENTS_ARRAY = ... %}
+           {{ checklist.build(TEMPLATES_ARRAY,SHARED_COMPONENTS_ARRAY) }}
+
+#}
+
+
+    <h1>Development progress for {{site_name}}</h1>
+    
+    {% if source.notes.url %}
+        <a style="color: blue; text-decoration: underline" href="{{source.notes.url}}">{{source.notes.title|default('Notes')}}</a>
+    {% endif %} 
+
+    {% set templates = source.templates %}
+    {% set global_components = source.global %}
+    {% set shared_components = source.shared %}
+    {% set partials = source.partials %}
+
+    {% if templates.0 %}
+        <h2>Templates</h2>
+        {{checklist.build(templates,shared_components)}}
+    {% endif %}
+
+    {% if global_components.0 %}
+        <h2>Global components</h2>
+        {{checklist.build(global_components)}}
+    {% endif %}
+
+    {% if shared_components.0 %}
+        <h2>Shared components</h2>
+        {{checklist.build(shared_components)}}
+    {% endif %}
+
+    {% if partials.0 %}
+        <h2>Partials</h2>
+        {{checklist.build(partials)}}
+    {% endif %}
+
+</body>
+
+</html>

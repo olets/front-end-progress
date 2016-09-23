@@ -1,0 +1,40 @@
+{
+  "name": "front-end-progress",
+  "version": "1.0.0",
+  "description": "An easy-to-maintain, easy-to-read tracker for front-end development: keep track of progress on templates, reused components, and page-specific modules, at various device widths",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://olets@github.com/olets/front-end-progress.git"
+  },
+  "keywords": [
+    "progress",
+    "checklist",
+    "front-end",
+    "frontend",
+    "developer",
+    "dev"
+  ],
+  "author": "Henry Bley-Vroman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/olets/front-end-progress/issues"
+  },
+  "homepage": "https://github.com/olets/front-end-progress#readme",
+  "dependencies": {
+    "browser-sync": "^2.16.0",
+    "fs": "0.0.1-security",
+    "glob": "^7.1.0",
+    "gulp": "^3.9.1",
+    "gulp-data": "^1.2.1",
+    "gulp-foreach": "^0.1.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-twig": "^0.5.0",
+    "path": "^0.12.7",
+    "run-sequence": "^1.2.2"
+  }
+}

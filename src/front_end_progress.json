@@ -1,0 +1,110 @@
+{
+  "siteName": "My website!",
+  "notes": {
+    "url":"front-end-notes.html",
+    "title":""
+  },
+  "statuses": [
+    {
+      "title": "finished",
+      "background": "green",
+      "color": "#fff"
+    },
+    {
+      "title": "getting_there",
+      "background": "#ffcc00",
+      "color": "#000"
+    },
+    {
+      "title": "started",
+      "background": "#ff6600",
+      "color": "#fff"
+    },
+    {
+      "title": "not_started",
+      "background": "#b30000",
+      "color": "#fff"
+    }
+  ],
+  "templates": [
+    {
+      "title": "home",
+      "desktop": "finished",
+      "mobile": "finished",
+      "specific": [
+        {
+          "title": "home masthead",
+          "desktop": "not_started",
+          "mobile": "not_started"
+        }
+      ],
+      "shared": [],
+      "notes": "where my {thought's escaping, music's playing, love lies waiting silently for me}"
+    },
+    {
+      "title": "contact",
+      "desktop": "started",
+      "mobile": "finished",
+      "specific": [
+        {
+          "title": "home masthead",
+          "desktop": "not_started",
+          "mobile": "not_started"
+        }
+      ],
+      "shared": [
+        "sidebar"
+      ],
+      "notes": ""
+    },
+    {
+      "title": "interior a",
+      "desktop": "not_started",
+      "mobile": "not_started",
+      "specific": [
+      ],
+      "shared": [
+      ],
+      "notes": "expect this tomorrow"
+    },
+    {
+      "title": "interior b",
+      "desktop": "started",
+      "mobile": "not_started",
+      "specific": [
+      ],
+      "shared": [
+        "sidebar"
+      ],
+      "notes": ""
+    }
+  ],
+  "global": [
+    {
+      "title": "header",
+      "desktop": "started",
+      "mobile": "not_started",
+      "notes": ""
+    },
+    {
+      "title": "footer",
+      "desktop": "finished",
+      "mobile": "finished",
+      "notes":"ask the PM who the copyright holder is"
+    },
+    {
+      "title": "interior masthead",
+      "desktop": "not_started",
+      "mobile": "finished",
+      "notes": ""
+    }
+  ],
+  "shared": [
+    {
+      "title": "sidebar",
+      "desktop": "started",
+      "mobile": "finished",
+      "notes": "designer is working on a mobile-specific sidebar - waiting on that"
+    }
+  ]
+}
