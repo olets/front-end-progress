@@ -182,16 +182,10 @@ All unfinished templates will be followed by their components, labelled with the
                                                     {% import _self as wrapped_checklist %}
                                                     {% if item.desktop == 'finished' and item.mobile == 'finished' %}
                                                         {% set item_status = 'finished' %}
-                                                    {% elseif (item.desktop == 'finished' or item.mobile == 'finished') or (item.desktop == 'started' and item.mobile == 'started') %}{# twigjs bug: can't use 'and not' #}
-                                                        {% if not (item.desktop == 'finished' and item.mobile == 'finished') %}
-                                                            {% set item_status = 'getting_there' %}
-                                                        {% endif %}
-                                                    {% elseif (item.desktop == 'started' or item.mobile == 'started') %}{# twigjs bug: can't use 'and not' #}
-                                                        {% if not (item.desktop == 'finished' or item.mobile == 'finished') %}
-                                                            {% if not (item.desktop == 'started' and item.mobile == 'started' ) %}
-                                                                {% set item_status = 'started' %}
-                                                            {% endif %}
-                                                        {% endif %}
+                                                    {% elseif ((item.desktop == 'finished' or item.mobile == 'finished') or (item.desktop == 'started' and item.mobile == 'started')) and not (item.desktop == 'finished' and item.mobile == 'finished') %}
+                                                        {% set item_status = 'getting_there' %}
+                                                    {% elseif (item.desktop == 'started' or item.mobile == 'started') and not (item.desktop == 'finished' or item.mobile == 'finished') and not (item.desktop == 'started' and item.mobile == 'started' ) %}
+                                                        {% set item_status = 'started' %}
                                                     {% elseif item.desktop == 'not_started' and item.mobile == 'not_started' %}
                                                         {% set item_status = 'not_started' %}
                                                     {% endif %}
@@ -284,21 +278,15 @@ All unfinished templates will be followed by their components, labelled with the
 
                                                         {# build the array of "getting there" things #}
                                                         {% for item in array %}
-                                                            {% if (item.desktop == 'finished' or item.mobile == 'finished') or (item.desktop == 'started' and item.mobile == 'started') %}{# twigjs bug: can't use 'and not' #}
-                                                                {% if not (item.desktop == 'finished' and item.mobile == 'finished') %}
-                                                                    {% set getting_there = getting_there|merge([item]) %}
-                                                                {% endif %}
+                                                            {% if ((item.desktop == 'finished' or item.mobile == 'finished') or (item.desktop == 'started' and item.mobile == 'started')) and not (item.desktop == 'finished' and item.mobile == 'finished') %}
+                                                                {% set getting_there = getting_there|merge([item]) %}
                                                             {% endif %}
                                                         {% endfor %}
 
                                                         {# build the array of stared things #}
                                                         {% for item in array %}
-                                                            {% if (item.desktop == 'started' or item.mobile == 'started') %}{# twigjs bug: can't use 'and not' #}
-                                                                {% if not (item.desktop == 'finished' or item.mobile == 'finished') %}
-                                                                    {% if not (item.desktop == 'started' and item.mobile == 'started' ) %}
-                                                                        {% set started = started|merge([item]) %}
-                                                                    {% endif %}
-                                                                {% endif %}
+                                                            {% if (item.desktop == 'started' or item.mobile == 'started') and not (item.desktop == 'finished' or item.mobile == 'finished') and not (item.desktop == 'started' and item.mobile == 'started') %}
+                                                                {% set started = started|merge([item]) %}
                                                             {% endif %}
                                                         {% endfor %}
                                                         
