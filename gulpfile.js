@@ -34,7 +34,7 @@ function getJsonData (file, cb) {
     });
 }
 
-gulp.task('front-end-progress',function(){
+gulp.task('front-end-progress:compile',function(){
     return gulp.src('./src/*.{twig,html}')
         .pipe(plumber({
           errorHandler: function (error) {
@@ -51,9 +51,14 @@ gulp.task('front-end-progress',function(){
         }))
         .pipe(gulp.dest('./dist'));
 });
-gulp.task('front-end-progress:update',['front-end-progress'],browserSync.reload);
+gulp.task('front-end-progress:update',['front-end-progress:compile'],browserSync.reload);
 
-gulp.task('default',function(){
+gulp.task('front-end-progress',function(){
     runSequence('front-end-progress','browserSync:init')
     gulp.watch('./src/*',['front-end-progress:update']);
 });
+// shortcut
+gulp.task('progress',['front-end-progress']);
+
+// shortcut for when this is the only task
+gulp.task('default',['front-end-progress']);

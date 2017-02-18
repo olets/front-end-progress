@@ -81,7 +81,13 @@ In `front_end_progress.json`:
 Compile with
 
 ```bash
-$ gulp
+$ gulp front-end-progress
+```
+
+or the shortcut
+
+```bash
+$ gulp progres
 ```
 
 **front-end-progress** will continue watching for changes to the progress tracker and, if relevant, the notes file.
