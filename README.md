@@ -12,7 +12,9 @@ where clicking on a template takes you to that page. Templates are grouped and c
 
 **front-end-progress** uses gulp. Assuming you're set up with node (`node -v` to check; if you don't have node, or even if you do, I recommned [installing it with `nvm`](https://github.com/creationix/nvm#install-script), install `front-end-progress` once with
 
-	$ (sudo) npm i
+```bash
+$ (sudo) npm i
+````
 
 ## Setup
 
@@ -24,10 +26,10 @@ In `front_end_progress.json`:
 
 1. List each **template** in `front_end_progress.json`'s `templates`. Give each a `title`, a `desktop` status, and a `mobile` status, and list any template-specific and shared components the template uses. `templates` will look something like
 
-	```
+    ```json
     "templates": [
         {
-          "title": "[required: title]"
+          "title": "[required: title]",
           "desktop": "[required: status]",
           "mobile": "[required: status]",
           "specific": [
@@ -49,25 +51,25 @@ In `front_end_progress.json`:
     
  Every **global** and **shared** component is listed in `global` and `shared`, respectively:
  
- 	```
-    "global": [
-        {
-            "title": "[required: name of the global component",
-            "desktop": "[required: status]",
-            "mobile": "[required: status]",
-        }
-    ]
-    ```
-    
-    ```
-    "shared": [
-        {
-            "title": "[required: name of the shared component",
-            "desktop": "[required: status]",
-            "mobile": "[required: status]",
-        }
-    ]
-    ```
+  ```json
+  "global": [
+      {
+          "title": "[required: name of the global component",
+          "desktop": "[required: status]",
+          "mobile": "[required: status]",
+      }
+  ]
+  ```
+  
+  ```json
+  "shared": [
+      {
+          "title": "[required: name of the shared component",
+          "desktop": "[required: status]",
+          "mobile": "[required: status]",
+      }
+  ]
+  ```
 
  Possible statuses for desktop and mobile are `not_started`, `started`, and `finished`.
  
@@ -76,7 +78,13 @@ In `front_end_progress.json`:
 
 ## Run
 
-Compile with `gulp`. **front-end-progress** will continue watching for changes to the progress tracker and, if relevant, the notes file.
+Compile with
+
+```bash
+$ gulp
+```
+
+**front-end-progress** will continue watching for changes to the progress tracker and, if relevant, the notes file.
 
 ## Understanding the output
 
