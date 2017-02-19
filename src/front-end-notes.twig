@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-    {%- set source = front_end_progress -%}
-    {%- set site_name = source.siteName -%}
+    {%- set source = front_end_progress__progress -%}
+    {%- set config = front_end_progress__config -%}
+    {%- set site_name = config.siteName -%}
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{source.notes.title}} - {{source.siteName}}</title>
+	<title>{{config.notes.title}} - {{site_name}}</title>
 </head>
 <body>
 	Some notes

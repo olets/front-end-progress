@@ -24,13 +24,17 @@ $ (sudo) npm i
 
 ## Setup
 
-In `front_end_progress.json`:
+In `front_end_progress__config.json`:
 
 1. Set the `siteName`
 
 1. To provide a link to additional notes, set the `notes.url`. To customize the link text, set the `notes.title` (if no `notes.title` is provided, the link text will default to "Notes").
 
-1. List each **template** in `front_end_progress.json`'s `templates`. Give each a `title`, a `desktop` status, and a `mobile` status, and list any template-specific and shared components the template uses. `templates` will look something like
+
+
+In `front_end_progress__progress.json`:
+
+1. List each **template** in `templates`. Give each a `title`, a `desktop` status, and a `mobile` status, and list any template-specific and shared components the template uses. `templates` will look something like
 
     ```json
     "templates": [

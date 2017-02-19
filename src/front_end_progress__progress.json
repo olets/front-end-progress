@@ -1,31 +1,4 @@
 {
-  "siteName": "My website!",
-  "notes": {
-    "url":"front-end-notes.html",
-    "title":""
-  },
-  "statuses": [
-    {
-      "title": "finished",
-      "background": "green",
-      "color": "#fff"
-    },
-    {
-      "title": "getting_there",
-      "background": "#ffcc00",
-      "color": "#000"
-    },
-    {
-      "title": "started",
-      "background": "#ff6600",
-      "color": "#fff"
-    },
-    {
-      "title": "not_started",
-      "background": "#b30000",
-      "color": "#fff"
-    }
-  ],
   "templates": [
     {
       "title": "home",

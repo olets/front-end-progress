@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head><!--- asdfsdf -->
-    {%- set source = front_end_progress -%}
-    {%- set site_name = source.siteName -%}
+    {%- set source = front_end_progress__progress -%}
+    {%- set config = front_end_progress__config -%}
+    {%- set site_name = config.siteName -%}
 
 {#
 
@@ -113,7 +114,7 @@ All unfinished templates will be followed by their components, labelled with the
         ol > li a:hover {
             background: #f4f4f4 !important;
         }
-        {% for status in source.statuses %}
+        {% for status in config.statuses %}
             section.{{status.title}} h3, section.{{status.title}} ol > li, section.{{status.title}} ol > li a {
                 color: {{status.background}}
             }
@@ -328,8 +329,8 @@ All unfinished templates will be followed by their components, labelled with the
 
     <h1>Development progress for {{site_name}}</h1>
     
-    {% if source.notes.url %}
-        <a style="color: blue; text-decoration: underline" href="{{source.notes.url}}">{{source.notes.title|default('Notes')}}</a>
+    {% if config.notes.url %}
+        <a style="color: blue; text-decoration: underline" href="{{config.notes.url}}">{{config.notes.title|default('Notes')}}</a>
     {% endif %} 
 
     {% set templates = source.templates %}

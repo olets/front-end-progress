@@ -22,7 +22,7 @@ gulp.task('browserSync:init', function() {
 });
 
 function getJsonData (file, cb) {
-    glob("src/front_end_progress.json", {}, function(err, files) {
+    glob('src/front_end_progress*.json', {}, function(err, files) {
         var data = {};
         if (files.length) {
             files.forEach(function(fPath){
