@@ -2,6 +2,7 @@
 1. [Set up](#setup)
 1. [Run](#run)
 1. [Understand the output](#understanding-the-output)
+1. [License](#license)
 
 This checklist should make it easy for devs to record and track their progress and, just as importantly, for others to follow along as the site is built out.
 
@@ -97,6 +98,7 @@ $ gulp progres
 
 **front-end-progress** will continue watching for changes to the progress tracker and, if relevant, the notes file.
 
+
 ## Understanding the output
 
 The template's status will be automatically determined from the desktop and mobile statuses of each template and component:
@@ -107,3 +109,7 @@ The template's status will be automatically determined from the desktop and mobi
 - and "Getting There" is templates where either mobile or desktop but not both are finished.
 
 All unfinished templates will be followed by their components, labelled with the component's desktop and mobile statuses.
+
+## License
+
+Released under the [MIT License](https://opensource.org/licenses/MIT), see the LICENSE file for more information.
