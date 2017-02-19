@@ -1,3 +1,8 @@
+1. [Install](#install)
+1. [Set up](#setup)
+1. [Run](#run)
+1. [Understand the output](#understanding-the-output)
+
 This checklist should make it easy for devs to record and track their progress and, just as importantly, for others to follow along as the site is built out.
 
 The tracker is easy to set up: just list the templates and the components in the source JSON file. And it's easy to update: just change status values from "not_started" to "started" to "finished" as you go - color coding and organization will be taken care of automatically. The compiled file is automatically updated in the browser, at `localhost:3000` ([customizable](https://www.browsersync.io/docs/gulp) by tweaking the `browserSync.init` in `gulpfile.js`)
