@@ -54,31 +54,31 @@ In `front_end_progress.json`:
     ]
     ```
     
- Every **global** and **shared** component is listed in `global` and `shared`, respectively:
+   Every **global** and **shared** component is listed in `global` and `shared`, respectively:
  
-  ```json
-  "global": [
-      {
-          "title": "[required: name of the global component",
-          "desktop": "[required: status]",
-          "mobile": "[required: status]",
-      }
-  ]
-  ```
-  
-  ```json
-  "shared": [
-      {
-          "title": "[required: name of the shared component",
-          "desktop": "[required: status]",
-          "mobile": "[required: status]",
-      }
-  ]
-  ```
+    ```json
+    "global": [
+        {
+            "title": "[required: name of the global component",
+            "desktop": "[required: status]",
+            "mobile": "[required: status]",
+        }
+    ]
+    ```
+    
+    ```json
+    "shared": [
+        {
+            "title": "[required: name of the shared component",
+            "desktop": "[required: status]",
+            "mobile": "[required: status]",
+        }
+    ]
+    ```
 
- Possible statuses for desktop and mobile are `not_started`, `started`, and `finished`.
- 
- Note that a component does not *have* to be listed under any templates.
+   Possible statuses for desktop and mobile are `not_started`, `started`, and `finished`.
+   
+   Note that a component does not *have* to be listed under any templates.
 
 
 ## Run
