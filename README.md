@@ -16,7 +16,7 @@ where clicking on a template takes you to that page. Templates are grouped and c
 
 ## Install
 
-**front-end-progress** uses gulp. Assuming you're set up with node (`node -v` to check; if you don't have node, or even if you do, I recommned [installing it with `nvm`](https://github.com/creationix/nvm#install-script), install `front-end-progress` once with
+**front-end-progress** uses gulp. Assuming you're set up with node (`node -v` to check; if you don't have node, or even if you do, I recommend [installing it with `nvm`](https://github.com/creationix/nvm#install-script)), install `front-end-progress` once with
 
 ```bash
 $ (sudo) npm i
